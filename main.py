@@ -1,4 +1,4 @@
-from utils import sort_by_current_rent
+from utils import sort_by_current_rent, filter_by_lease_years
 from constant import CSV_PATH
 import argparse
 import csv
@@ -19,18 +19,33 @@ def parse_arguments():
         "--item",
         default=5,
         type=int,
-        help="Returning item count. Default is 0. ",
+        help="Pass to system the desired item count. Default is 0.",
+    )
+
+    parser.add_argument(
+        "--lease-year",
+        default=25,
+        type=int,
+        help="Pass to system the desired lease year. Default is 25.",
     )
     return parser.parse_args()
 
 
 def main():
     args = parse_arguments()
-    sort_type, item_count = args.sorting_type, args.item
+    sort_type, item_count, lease_year = (
+        args.sorting_type,
+        args.item,
+        args.lease_year,
+    )
 
     reader = csv.DictReader(open(CSV_PATH, "r"))
-    sorted_rents = sort_by_current_rent(list(reader), sort_type, item_count)
+    csv_data = list(reader)
+    sorted_rents = sort_by_current_rent(csv_data, sort_type, item_count)
     print(sorted_rents)  # Print to console
+    filtered_rents, total_rent = filter_by_lease_years(csv_data, lease_year)
+    print(filtered_rents)
+    print(total_rent)
 
 
 main()
