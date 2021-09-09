@@ -68,14 +68,13 @@ def main():
     csv_data = list(reader)
     sorted_rents = sort_by_current_rent(csv_data, sort_type, item_count)
     print(sorted_rents)  # Print to console
-    print("*" * 50)
+    print("+" * 50)
     filtered_rents, total_rent = filter_by_lease_years(csv_data, lease_year)
     print(filtered_rents, total_rent)
-    print("*" * 50)
+    print("-" * 50)
     tenant_summary_data = get_tenant_names_and_counts(csv_data)
     print(tenant_summary_data)
     print("*" * 50)
-    print(start_date)
     filtered_rents_by_date_range = list_rentals_by_date_range(
         csv_data, start_date, end_date
     )
