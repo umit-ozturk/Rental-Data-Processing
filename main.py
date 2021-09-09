@@ -1,4 +1,8 @@
-from utils import sort_by_current_rent, filter_by_lease_years
+from utils import (
+    sort_by_current_rent,
+    filter_by_lease_years,
+    get_tenant_names_and_counts,
+)
 from constant import CSV_PATH
 import argparse
 import csv
@@ -43,9 +47,13 @@ def main():
     csv_data = list(reader)
     sorted_rents = sort_by_current_rent(csv_data, sort_type, item_count)
     print(sorted_rents)  # Print to console
+    print("*" * 50)
     filtered_rents, total_rent = filter_by_lease_years(csv_data, lease_year)
-    print(filtered_rents)
-    print(total_rent)
+    print(filtered_rents, total_rent)
+    print("*" * 50)
+    tenant_summary_data = get_tenant_names_and_counts(csv_data)
+    print(tenant_summary_data)
+    print("*" * 50)
 
 
 main()
